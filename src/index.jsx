@@ -17,6 +17,7 @@ import {schema} from 'rdf-namespaces';
 import { Provider } from 'react-redux';
 import configureStore from './store';
 import './i18n';
+import TestConfigurableForm from './components/form/testConfigurableForm'
 
 const store = configureStore();
 
@@ -320,6 +321,9 @@ const Index = () => {
                                         </div>
                                     </div>
                                 </section>
+                            </Route>
+                            <Route path="/test-configurable-form">
+                                <TestConfigurableForm/>
                             </Route>
                         </Switch>
                     </LoggedIn>

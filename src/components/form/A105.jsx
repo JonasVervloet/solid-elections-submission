@@ -16,6 +16,7 @@ import A105Funds from "./A105Funds";
 import { useTranslation } from 'react-i18next';
 import useExpensesForm from '../../utils/useExpensesForm';
 import useFundsForm from '../../utils/useFundsForm';
+import useFormBuilder from '../../utils/useFormBuilder';
 
 class TestA105 extends React.Component {
     FILE_NAME_PROFILE = "me.ttl";
@@ -843,6 +844,9 @@ class TestA105 extends React.Component {
 // export default TestA105;
 
 export default function A105(props) {
+
+    const {addSection, addSubSection, addInput, printData}
+        = useFormBuilder();
 
     const FILE_NAME_PROFILE = "me.ttl";
     const FILE_ID = "a105";

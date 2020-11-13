@@ -34,10 +34,12 @@ const useExpensesForm =  () => {
         const oldValue = expensesValues[id];
         const parsedValue = parseFloat(value);
 
+        console.log(expensesValues);
         setExpensesValues({
             ...expensesValues,
             [id]: parsedValue
         });
+        console.log(expensesValues);
         updateTotal(oldValue, parsedValue);
     }
 
