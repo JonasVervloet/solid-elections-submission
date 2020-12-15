@@ -2,10 +2,23 @@ import React, { useState, useEffect } from "react";
 import useForm from '../../utils/useForm';
 import {addInput, addSection, addSubsection, 
     generateInputDictionary, buildForm} from '../../utils/formBuilder';
+import {loadShape, validateData} from '../../utils/ShexLoader'
 
 export default function TestConfigurableForm(props) {
 
     const form = [];
+
+    console.log('LOADER');
+    loadShape('http://localhost:3000/solid-elections-submission/shapes/candidate.shex', 'Candidate').then(result => {
+        console.log(result);
+    });
+    validateData(
+        'http://localhost:3000/solid-elections-submission/shapes/candidate.shex',
+        'https://jonasvervloet.inrupt.net/public/solidelections/me.ttl',
+        'https://jonasvervloet.inrupt.net/public/solidelections/me.ttl#me',
+        'Candidate'
+    );
+
 
     addSection(form, {
         sectionName: "Aangiften van de verkiezingsuitgaven",
@@ -64,11 +77,6 @@ export default function TestConfigurableForm(props) {
 
     const inputs = generateInputDictionary(form);
     const {handleChange, handleSubmit, stateValues, total} = useForm(inputs);
-
-    console.log("FORM");
-    console.log(form);
-    console.log("INPUTS");
-    console.log(inputs);
 
     return (
         <section className="vl-region">
