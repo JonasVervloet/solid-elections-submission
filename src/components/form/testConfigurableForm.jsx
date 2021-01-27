@@ -2,23 +2,27 @@ import React, { useState, useEffect } from "react";
 import useForm from '../../utils/useForm';
 import {addInput, addSection, addSubsection, 
     generateInputDictionary, buildForm} from '../../utils/formBuilder';
-import {loadShape, validateData} from '../../utils/ShexLoader'
+import useShexFormBuilder from '../../utils/useShexFormBuilder';
+import {context} from '../../utils/candidateContext'
 
 export default function TestConfigurableForm(props) {
 
-    const form = [];
-
-    console.log('LOADER');
-    loadShape('http://localhost:3000/solid-elections-submission/shapes/candidate.shex', 'Candidate').then(result => {
-        console.log(result);
-    });
-    validateData(
+    const {schema, shapeComplete, shape, 
+        loadSchema, renderForm} = useShexFormBuilder(
         'http://localhost:3000/solid-elections-submission/shapes/candidate.shex',
-        'https://jonasvervloet.inrupt.net/public/solidelections/me.ttl',
-        'https://jonasvervloet.inrupt.net/public/solidelections/me.ttl#me',
-        'Candidate'
+        context
     );
 
+    useEffect(() => {
+        loadSchema();
+    }, []);
+
+    useEffect(() => {
+        console.log('SCHEMA');
+        console.log(schema);
+    }, [schema]);
+
+    const form = [];
 
     addSection(form, {
         sectionName: "Aangiften van de verkiezingsuitgaven",
@@ -145,11 +149,16 @@ export default function TestConfigurableForm(props) {
                         </li>
                     </ul>
 
-                    <div className="tab-content" id="tabContent">
+                    {/* <div className="tab-content" id="tabContent">
                         <div className="tab-pane fade show active" id="a105-form" role="tabpanel" aria-labelledby="a105-form">
                             {buildForm(form, handleChange, handleSubmit, stateValues, total)}
                         </div>
+                    </div> */}
+
+                    <div>
+                        {shapeComplete ? shape : renderForm()}
                     </div>
+                    
                 </div>
             </div>
     </section>

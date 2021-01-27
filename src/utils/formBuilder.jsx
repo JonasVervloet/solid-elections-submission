@@ -66,7 +66,6 @@ const subSectionToInputs = (dictionary, subSection) => {
 }
 
 const buildForm = (form, handleChange, handleSubmit, stateValues, total) => {
-    console.log(form);
     return (
         <div>
             TEST TEST TEST

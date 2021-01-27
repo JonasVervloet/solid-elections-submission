@@ -2,8 +2,8 @@ PREFIX schema: <http://schema.org/>
 PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
 
 <Candidate> {
-#    a                           schema:Person;
-    schema:addressLocality      xsd:string;
+#   a                           schema:Person;
+    schema:addressLocality      xsd:string MaxLength 10;
     schema:postalCode           xsd:integer Length 4;
-    schema:sameAs               IRI;
+    schema:sameAs               IRI /https?:\/\/data.lblod.info\/id\/personen\/.+/;
 }

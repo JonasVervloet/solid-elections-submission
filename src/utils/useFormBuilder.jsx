@@ -43,7 +43,6 @@ const useFormBuilder = () => {
         }
         inputs.push(inputData);
         inputData[inputId] = 0;
-        console.log(inputData);
     }
 
     const getInputData = () => {
@@ -51,7 +50,6 @@ const useFormBuilder = () => {
     }
 
     const buildForm = () => {
-        console.log(data);
         return (
             <div>
                 {data.map(
@@ -99,7 +97,6 @@ const useFormBuilder = () => {
     }
 
     const buildInput = (inputData) => {
-        console.log(stateValues);
         return (
             <div className="vl-grid">
                 <div className="form-group">
