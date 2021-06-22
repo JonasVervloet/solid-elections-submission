@@ -23,8 +23,8 @@ const App = () => {
     useEffect(() => {
         if (webID) {
             dispatch(setWebID(webID));
-            dispatch(requestUserLoad());
-            dispatch(requestExpensesLoad())
+            // dispatch(requestUserLoad());
+            // dispatch(requestExpensesLoad())
         }
     }, [webID]);
 

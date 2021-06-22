@@ -1,9 +1,21 @@
-import { fetchDocument, createDocument } from "tripledoc";
-import {schema, space} from 'rdf-namespaces';
-import auth from 'solid-auth-client';
-import FileClient from 'solid-file-client';
+import { fetchDocument } from "tripledoc"
+import {space} from 'rdf-namespaces'
+import {graph, Fetcher} from 'rdflib'
+import auth from 'solid-auth-client'
+import FileClient from 'solid-file-client'
 
 const fileClient = new FileClient(auth);
+
+export const getBaseURI = async (webID) => {
+    const profileDoc = await fetchDocument(webID);
+    const profile = profileDoc.getSubject(webID);
+    
+    const storageFolder = await fileClient.readFolder(
+        profile.getRef(space.storage)
+    )
+
+    return [true, storageFolder.url];
+}
 
 const getPublicFolderURI = async (webID) => {
     const profileDoc = await fetchDocument(webID);
@@ -63,4 +75,48 @@ export const getFolderFiles = async (uri) => {
     }
 
     return null;
+}
+
+export const readFolder = async (uri) => {
+    return await fileClient.readFolder(uri);
+}
+
+export const fetchTriples = async (uri) => {
+    try {
+        const store = graph();
+        const fetcher = new Fetcher(store, {});
+        await fetcher.load(uri);
+
+        const triples = store.statementsMatching(undefined, undefined, undefined);
+
+        return [
+            true, triples.map(
+                triple => tripleToJson(triple)
+            ).filter(
+                triple => selectDocumentTriples(triple, uri)
+            )
+        ]
+    } catch (e) {
+        console.log(e);
+
+        return [false, e]
+    }
+}
+
+const tripleToJson = triple => {
+    return {
+      subject: triple.subject.value,
+      predicate: triple.predicate.value,
+      object: triple.object.value
+    }
+}
+
+const selectDocumentTriples = (triple, uri) => {
+    const split = triple.subject.split('#');
+    if (split.length == 2 
+        && split[0] == uri) {
+            return true;
+        } else {
+            return false;
+        }
 }

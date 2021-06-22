@@ -4,6 +4,9 @@
   "private": true,
   "homepage": "https://osoc20.github.io/solid-elections-submission",
   "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^1.2.34",
+    "@fortawesome/free-solid-svg-icons": "^5.15.2",
+    "@fortawesome/react-fontawesome": "^0.1.14",
     "@govflanders/vl-ui-alert": "^3.11.4",
     "@govflanders/vl-ui-button": "^3.11.4",
     "@govflanders/vl-ui-content-footer": "^3.11.4",
@@ -29,6 +32,7 @@
     "i18next": "^19.8.2",
     "i18next-xhr-backend": "^3.2.2",
     "rdf-namespaces": "^1.8.0",
+    "rdflib": "^2.2.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-hook-form": "^6.14.2",
